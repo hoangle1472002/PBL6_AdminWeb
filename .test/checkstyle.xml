@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+	<env>
+		<browser>true</browser>
+		<es2021>true</es2021>
+	</env>
+	<extends>plugin:react/recommended</extends>
+	<extends>airbnb</extends>
+	<extends>prettier</extends>
+	<parserOptions>
+		<ecmaFeatures>
+			<jsx>true</jsx>
+		</ecmaFeatures>
+		<ecmaVersion>12</ecmaVersion>
+		<sourceType>module</sourceType>
+	</parserOptions>
+	<plugins>react</plugins>
+	<plugins>prettier</plugins>
+	<rules>
+		<prettier/prettier>error</prettier/prettier>
+		<prettier/prettier>
+			<endOfLine>auto</endOfLine>
+		</prettier/prettier>
+		<default-param-last>off</default-param-last>
+		<react/react-in-jsx-scope>off</react/react-in-jsx-scope>
+		<react/jsx-filename-extension>1</react/jsx-filename-extension>
+		<react/jsx-filename-extension>
+			<extensions>.js</extensions>
+			<extensions>.jsx</extensions>
+		</react/jsx-filename-extension>
+		<react/jsx-props-no-spreading>1</react/jsx-props-no-spreading>
+		<react/jsx-props-no-spreading>
+			<custom>ignore</custom>
+		</react/jsx-props-no-spreading>
+		<react/jsx-curly-spacing>2</react/jsx-curly-spacing>
+		<react/jsx-curly-spacing>never</react/jsx-curly-spacing>
+	</rules>
+	<settings>
+		<import/resolver>
+			<node>
+				<paths>src</paths>
+			</node>
+		</import/resolver>
+	</settings>
+</root>
