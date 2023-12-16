@@ -5,9 +5,10 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import TextField from "@mui/material/TextField";
 import MDButton from "components/MDButton";
-import { useState } from "react";
-import { createVehicle } from "Apis/vehicle.api";
+import { useState, useEffect } from "react";
+import { createVehicle, getAllTypeVehicle } from "Apis/vehicle.api";
 import { PropTypes } from "prop-types";
+import { Select, MenuItem } from "@mui/material";
 
 function AddVehicle({ setClickSave, setNotification }) {
   const [vehicle, setVehicle] = useState({
@@ -22,6 +23,13 @@ function AddVehicle({ setClickSave, setNotification }) {
     // console.log(setClickSave);
     createVehicle(vehicle, setClickSave, setNotification);
   };
+
+  const [seatQuantities, setSeatQuantities] = useState([]);
+
+  useEffect(() => {
+    getAllTypeVehicle(setVehicle, setSeatQuantities);
+  }, []);
+
   return (
     <Card sx={{ height: "350px" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={4}>
@@ -64,40 +72,25 @@ function AddVehicle({ setClickSave, setNotification }) {
             />
           </MDBox>
         </MDBox>
-        {/* <MDBox mb={2} display="flex">
-          <MDTypography variant="caption" color="text" fontWeight="bold" width="30%">
-            Số lượng ghế
-          </MDTypography>
-          <MDBox ml={3} width="70%">
-            <TextField
-              variant="outlined"
-              sx={{ mt: -1, width: "100%" }}
-              onChange={(e) => {
-                setVehicle({
-                  ...vehicle,
-                  seatQuantity: e.target.value,
-                });
-              }}
-            />
-          </MDBox>
-        </MDBox> */}
-        {/* <MDBox mb={2} display="flex">
-          <MDTypography variant="caption" color="text" fontWeight="bold" width="80px">
-            Status
-          </MDTypography>
-          <MDBox ml={4} width="15rem">
-            <TextField
-              label="status"
-              variant="outlined"
-              sx={{ mt: -1, width: "24ch" }}
-              onChange={(e) => {
-                setVehicle({
-                  ...vehicle,
-                });
-              }}
-            />
-          </MDBox>
-        </MDBox> */}
+        <Select
+          fullWidth
+          value={vehicle.seatQuantity}
+          onChange={(e) => {
+            setVehicle({
+              ...vehicle,
+              seatQuantity: e.target.value,
+            });
+          }}
+          variant="standard"
+          sx={{ width: "450px", mx: 4 }}
+          disabled
+        >
+          {seatQuantities.map((item) => (
+            <MenuItem key={item.id} value={item.quantity}>
+              {item.description}
+            </MenuItem>
+          ))}
+        </Select>
         <MDBox mt={1} mb={2} ml="83%" width="50px">
           <MDButton
             component=""

@@ -318,33 +318,31 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
               />
             </MDBox>
             <MDTypography variant="caption" color="text" fontWeight="bold" width="10%" ml={5}>
-              thời gian:
+              Thời gian:
             </MDTypography>
             <MDBox ml={0} width="15%">
               <TextField
                 id="time"
-                label="thời gian"
+                label="Thời gian"
                 type="time"
-                // defaultValue="03:30"
-                value={dataUpdate.time?.[1]}
                 sx={{ width: 200, mt: -1 }}
+                value={dataUpdate.time?.[1] || ""}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={(e) => {
-                  const arrTime = [...dataUpdate.time];
-                  if (!e.target.value) {
-                    arrTime[1] = `${e.target.value}`;
-                  } else {
-                    arrTime[1] = `${e.target.value}:00`;
-                  }
-                  setDataUpdate({
-                    ...dataUpdate,
-                    time: arrTime,
+                  setDataUpdate((prevDataUpdate) => {
+                    const arrTime = prevDataUpdate.time ? [...prevDataUpdate.time] : ["", "", ""];
+                    arrTime[1] = e.target.value ? `${e.target.value}:00` : ""; // Check if e.target.value is truthy before formatting
+                    return {
+                      ...prevDataUpdate,
+                      time: arrTime,
+                    };
                   });
                 }}
               />
             </MDBox>
+
             <MDBox mt={0} mb={1} ml={5} width="10%">
               {null}
             </MDBox>

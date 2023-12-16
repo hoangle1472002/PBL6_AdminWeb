@@ -1,3 +1,3 @@
-const baseUrl = "http://35.240.208.147:6789/api/";
-
+const baseUrl = "http://localhost:8080/api/";
+// const baseUrl = "http://192.168.65.62:8080/api/";
 export default baseUrl;

@@ -34,7 +34,7 @@ function ListTrip({ listTrip, setIsSave, setNotification }) {
                     des={item.tripInstance.route.arrival.nameStation}
                     date={item.tripInstance.date}
                     time={item.tripInstance.timeStart}
-                    vehicle={item.adminListVehicle.nameVehicle}
+                    vehicle={item.vehicles.nameVehicle}
                     idTrip={item.idTrip}
                     routeStationPrice={item.routeStationPrice}
                     hide={false}

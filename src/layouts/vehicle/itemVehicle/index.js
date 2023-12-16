@@ -23,7 +23,9 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 import * as React from "react";
@@ -169,6 +171,21 @@ function ItemVehicle({
             }}
             disabled
           />
+          <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Trạng thái"
+            onChange={(e) => {
+              setVehicle({
+                ...vehicle,
+                status: e.target.value,
+              });
+            }}
+          >
+            <MenuItem value="true">Đang hoạt động</MenuItem>
+            <MenuItem value="false">Dừng hoạt động</MenuItem>
+          </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Hủy</Button>

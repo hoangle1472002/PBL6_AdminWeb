@@ -48,6 +48,31 @@ const getVehicleById = (idVehicle, setVehicle, setIsSave) => {
     });
 };
 
+const getAllTypeVehicle = (setVehicle, setSeatQuantities) => {
+  axios({
+    method: "get",
+    url: `${baseUrl}all-type-vehicle`,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => {
+      // Set seat quantities in the state
+      setSeatQuantities(data);
+
+      // Set default vehicle state with the first seat quantity
+      setVehicle({
+        ...data[0],
+        seatQuantity: data[0]?.quantity || "",
+      });
+    })
+    .catch((err) => {
+      // Handle error
+      console.error(err);
+    });
+};
+
 // const getAllVehicle = (setAllVehicles, setIsSave) => {
 //   axios({
 //     method: "get",
@@ -111,4 +136,4 @@ const updateVehicle = (Data, setIsSave, setNotification) => {
     });
 };
 
-export { getVehicle, getVehicleById, createVehicle, updateVehicle };
+export { getVehicle, getVehicleById, createVehicle, updateVehicle, getAllTypeVehicle };
