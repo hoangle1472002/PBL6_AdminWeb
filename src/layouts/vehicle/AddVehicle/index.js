@@ -27,7 +27,15 @@ function AddVehicle({ setClickSave, setNotification }) {
   const [seatQuantities, setSeatQuantities] = useState([]);
 
   useEffect(() => {
-    getAllTypeVehicle(setVehicle, setSeatQuantities);
+    const fetchData = async () => {
+      try {
+        await getAllTypeVehicle(setVehicle, setSeatQuantities);
+      } catch (error) {
+        console.error("Error fetching seat quantities:", error);
+        // Handle the error, e.g., show an error notification
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -72,25 +80,32 @@ function AddVehicle({ setClickSave, setNotification }) {
             />
           </MDBox>
         </MDBox>
-        <Select
-          fullWidth
-          value={vehicle.seatQuantity}
-          onChange={(e) => {
-            setVehicle({
-              ...vehicle,
-              seatQuantity: e.target.value,
-            });
-          }}
-          variant="standard"
-          sx={{ width: "450px", mx: 4 }}
-          disabled
-        >
-          {seatQuantities.map((item) => (
-            <MenuItem key={item.id} value={item.quantity}>
-              {item.description}
-            </MenuItem>
-          ))}
-        </Select>
+
+        <MDBox mb={2} display="flex" justifyContent="flex-start" alignItems="center">
+          <MDTypography variant="caption" color="text" fontWeight="bold" width="30%">
+            Loại xe :
+          </MDTypography>
+          <Select
+            ml={3} // Adjust the margin-left for proper alignment
+            fullWidth
+            value={vehicle.seatQuantity}
+            onChange={(e) => {
+              setVehicle({
+                ...vehicle,
+                seatQuantity: e.target.value,
+              });
+            }}
+            variant="standard"
+            sx={{ width: "100%", mx: 4, border: "1px solid #ccc", borderRadius: 4 }}
+          >
+            {seatQuantities.map((item) => (
+              <MenuItem key={item.id} value={item.quantity}>
+                {item.description}
+              </MenuItem>
+            ))}
+          </Select>
+        </MDBox>
+
         <MDBox mt={1} mb={2} ml="83%" width="50px">
           <MDButton
             component=""
