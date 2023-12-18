@@ -38,13 +38,14 @@ function ListTrip({ tripInstances, setIsSave, setNotification }) {
             {tripInstances.length > 0
               ? tripInstances.map((item, index) => (
                   <Item
+                    key={item.id}
                     stt={index + 1}
-                    departure={item.adminGetRouteResponse.route.departure.nameStation}
-                    arrival={item.adminGetRouteResponse.route.arrival.nameStation}
+                    departure={item?.adminGetRouteResponse?.route?.departure?.nameStation}
+                    arrival={item?.adminGetRouteResponse?.route?.arrival?.nameStation}
                     date={item.date}
                     time={item.timeStart}
                     idTripInstance={item.id}
-                    idRoute={item.adminGetRouteResponse.route.id}
+                    idRoute={item.adminGetRouteResponse?.route.id}
                     hide={false}
                     setIsSave={setIsSave}
                     setNotification={setNotification}
