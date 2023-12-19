@@ -13,7 +13,7 @@ const getTripInstance = (setTripInstance, setIsSave) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      console.log("body", body);
       setTripInstance(body);
       setIsSave(false);
     })

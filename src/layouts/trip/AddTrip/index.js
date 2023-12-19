@@ -202,8 +202,8 @@ function AddTrip({ setIsSave, setNotification }) {
                   <MenuItem value={0}>Tất Cả</MenuItem>
                   {tripInstances.map((item) => (
                     <MenuItem value={item.id} key={item.id}>
-                      {item.adminGetRouteResponse.route.departure.nameStation}- to -
-                      {item.adminGetRouteResponse.route.arrival.nameStation}
+                      {item?.adminGetRouteResponse?.route?.departure?.nameStation}- to -
+                      {item?.adminGetRouteResponse?.route?.arrival?.nameStation}
                     </MenuItem>
                   ))}
                 </Select>

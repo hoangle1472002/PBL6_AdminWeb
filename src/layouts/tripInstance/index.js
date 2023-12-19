@@ -12,10 +12,10 @@ import ListStation from "layouts/tripInstance/ListStation";
 import AddTrip from "layouts/tripInstance/AddTrip";
 import ListTrip from "layouts/tripInstance/ListTrip";
 import { useEffect, useState } from "react";
-import { getTripInstance } from "Apis/tripinstance.api";
 import Loading from "components/Loading";
 import { getRoute, getRouteStationById } from "Apis/route.api";
 import { Alert, Button } from "@mui/material";
+import { getTripInstance } from "Apis/tripinstance.api";
 
 function Trip() {
   const [tripInstances, setTripInstances] = useState([]);
@@ -35,6 +35,7 @@ function Trip() {
   }, [notification]);
   useEffect(() => {
     if (isSave) {
+      console.log("fetch");
       getTripInstance(setTripInstances, setIsSave);
       getRoute(setRoutes, setIsSave);
     }
@@ -80,6 +81,8 @@ function Trip() {
     }
     return res;
   };
+  console.log(listStation);
+
   return (
     <DashboardLayout>
       <DashboardNavbar title="Thời gian chuyến" />

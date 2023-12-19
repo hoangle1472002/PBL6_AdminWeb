@@ -29,14 +29,15 @@ function ListTrip({ listTrip, setIsSave, setNotification }) {
             {listTrip.length > 0
               ? listTrip.map((item, index) => (
                   <Item
+                    key={item.id}
                     stt={index + 1}
-                    dep={item.tripInstance.route.departure.nameStation}
-                    des={item.tripInstance.route.arrival.nameStation}
-                    date={item.tripInstance.date}
-                    time={item.tripInstance.timeStart}
-                    vehicle={item.vehicles.nameVehicle}
-                    idTrip={item.idTrip}
-                    routeStationPrice={item.routeStationPrice}
+                    dep={item?.tripInstance?.route?.departure?.nameStation}
+                    des={item?.tripInstance?.route?.arrival?.nameStation}
+                    date={item?.tripInstance?.date}
+                    time={item?.tripInstance?.timeStart}
+                    vehicle={item?.vehicles?.nameVehicle}
+                    idTrip={item?.idTrip}
+                    routeStationPrice={item?.routeStationPrice}
                     hide={false}
                     setIsSave={setIsSave}
                     setNotification={setNotification}
