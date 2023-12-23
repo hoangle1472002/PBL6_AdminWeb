@@ -17,13 +17,13 @@ Coded by www.creative-tim.com
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 // @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
+// import FacebookIcon from "@mui/icons-material/Facebook";
+// import TwitterIcon from "@mui/icons-material/Twitter";
+// import InstagramIcon from "@mui/icons-material/Instagram";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+// import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Icon from "@mui/material/Icon";
 import TextField from "@mui/material/TextField";
 
@@ -32,14 +32,14 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 // Overview page components
 import Header from "layouts/profile/components/Header";
-import typography from "assets/theme/base/typography";
+// import typography from "assets/theme/base/typography";
 import { useEffect, useState } from "react";
-import { getProfile } from "Apis/auth.api";
+import { getProfile, updateProfile } from "Apis/auth.api";
 import { Alert, Button } from "@mui/material";
 import Loading from "components/Loading";
 
 function Overview() {
-  const { size } = typography;
+  // const { size } = typography;
   const [edit, setEdit] = useState(false);
   const handleClick = () => {
     setEdit(!edit);
@@ -48,21 +48,28 @@ function Overview() {
   const [profile, setProfile] = useState([]);
   const [dataUpdate, setDataUpdate] = useState({
     birthday: "",
-    idTeacher: "",
+    id: "",
     name: "",
-    numberPhone: "",
-    password: "",
+    phone: "",
+    // password: "",
+    email: "",
+    city: "",
+    country: "",
+    address: "",
   });
   const [isSave, setIsSave] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [notification, setNotification] = useState("");
   useEffect(() => {
     getProfile(setProfile, setIsSave);
-  }, [profile]);
+  }, []);
 
-  // const handleUpdateProfile = () => {
-  //   updateProfile(dataUpdate, setIsSave, setNotification);
-  // };
+  const handleUpdateProfile = () => {
+    updateProfile(dataUpdate);
+  };
+  // eslint-disable-next-line no-unused-vars
   const [inValidPassword, setInValidPassword] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const handleValidPassword = (val) => {
     if (val.length > 7) {
       setInValidPassword(true);
@@ -103,9 +110,9 @@ function Overview() {
   };
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {/* <DashboardNavbar /> */}
       <MDBox mb={2} />
-      <Header name={profile.body?.name}>
+      <Header name={profile.body?.name} city={profile.body?.city}>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} ml={10} sx={{ display: "block" }}>
@@ -117,17 +124,21 @@ function Overview() {
                 px={2}
               >
                 <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-                  Profile information
+                  Thông tin nhà xe
                 </MDTypography>
                 <MDTypography
                   onClick={() => {
                     handleClick();
                     setDataUpdate({
                       ...dataUpdate,
-                      birthday: profile.body?.birthday.split("T")[0],
-                      idTeacher: profile.body?.id,
+                      birthday: profile.body?.birthday?.split("T")[0],
+                      id: profile.body?.id,
                       name: profile.body?.name,
-                      numberPhone: profile.body?.numberPhone,
+                      phone: profile.body?.numberPhone,
+                      email: profile.body?.email,
+                      city: profile.body?.city,
+                      country: profile.body?.country,
+                      address: profile.body?.address,
                     });
                   }}
                   variant="body2"
@@ -152,7 +163,7 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            fullName: &nbsp;
+                            Tên nhà xe: &nbsp;
                           </MDTypography>
                           <MDTypography variant="button" fontWeight="regular" color="text">
                             &nbsp;{profile.body?.name}
@@ -165,10 +176,10 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            mobile: &nbsp;
+                            Số điện thoại: &nbsp;
                           </MDTypography>
                           <MDTypography variant="button" fontWeight="regular" color="text">
-                            &nbsp;{profile.body?.numberPhone}
+                            &nbsp;{profile.body?.phone}
                           </MDTypography>
                         </MDBox>
                         <MDBox display="flex" py={1} pr={2}>
@@ -178,7 +189,20 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            birthday: &nbsp;
+                            Email: &nbsp;
+                          </MDTypography>
+                          <MDTypography variant="button" fontWeight="regular" color="text">
+                            &nbsp;{profile.body?.email}
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Ngày thành lập: &nbsp;
                           </MDTypography>
                           <MDTypography variant="button" fontWeight="regular" color="text">
                             &nbsp;{profile.body?.birthday}
@@ -191,12 +215,51 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            password: &nbsp;
+                            Tỉnh/Thành phố: &nbsp;
+                          </MDTypography>
+                          <MDTypography variant="button" fontWeight="regular" color="text">
+                            &nbsp;{profile.body?.city}
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Quốc Tịch: &nbsp;
+                          </MDTypography>
+                          <MDTypography variant="button" fontWeight="regular" color="text">
+                            &nbsp;{profile.body?.country}
+                          </MDTypography>
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Địa chỉ: &nbsp;
+                          </MDTypography>
+                          <MDTypography variant="button" fontWeight="regular" color="text">
+                            &nbsp;{profile.body?.address}
+                          </MDTypography>
+                        </MDBox>
+                        {/* <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Mật khẩu mới: &nbsp;
                           </MDTypography>
                           <MDTypography variant="button" fontWeight="regular" color="text">
                             &nbsp;
                           </MDTypography>
-                        </MDBox>
+                        </MDBox> */}
                       </MDBox>
                     ) : (
                       <MDBox>
@@ -207,7 +270,7 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            fullName: &nbsp;
+                            Tên nhà xe: &nbsp;
                           </MDTypography>
                           <TextField
                             autoFocus
@@ -232,7 +295,7 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            mobile: &nbsp;
+                            Số điện thoại: &nbsp;
                           </MDTypography>
                           <TextField
                             autoFocus
@@ -241,11 +304,11 @@ function Overview() {
                             type="text"
                             variant="standard"
                             sx={{ width: "250px", mt: "-4px" }}
-                            value={dataUpdate.numberPhone}
+                            value={dataUpdate.phone}
                             onChange={(e) => {
                               setDataUpdate({
                                 ...dataUpdate,
-                                numberPhone: e.target.value,
+                                phone: e.target.value,
                               });
                             }}
                           />
@@ -257,7 +320,32 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            birthday: &nbsp;
+                            Email: &nbsp;
+                          </MDTypography>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="t4"
+                            type="text"
+                            variant="standard"
+                            sx={{ width: "250px", mt: "-4px" }}
+                            value={dataUpdate.email}
+                            onChange={(e) => {
+                              setDataUpdate({
+                                ...dataUpdate,
+                                email: e.target.value,
+                              });
+                            }}
+                          />
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Ngày thành lập: &nbsp;
                           </MDTypography>
                           <TextField
                             autoFocus
@@ -282,7 +370,82 @@ function Overview() {
                             textTransform="capitalize"
                             width="120px"
                           >
-                            password: &nbsp;
+                            Tỉnh thành phố: &nbsp;
+                          </MDTypography>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="t4"
+                            type="text"
+                            variant="standard"
+                            sx={{ width: "250px", mt: "-4px" }}
+                            value={dataUpdate.city}
+                            onChange={(e) => {
+                              setDataUpdate({
+                                ...dataUpdate,
+                                city: e.target.value,
+                              });
+                            }}
+                          />
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Quốc tịch: &nbsp;
+                          </MDTypography>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="t4"
+                            type="text"
+                            variant="standard"
+                            sx={{ width: "250px", mt: "-4px" }}
+                            value={dataUpdate.country}
+                            onChange={(e) => {
+                              setDataUpdate({
+                                ...dataUpdate,
+                                country: e.target.value,
+                              });
+                            }}
+                          />
+                        </MDBox>
+                        <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Địa chỉ: &nbsp;
+                          </MDTypography>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="t4"
+                            type="text"
+                            variant="standard"
+                            sx={{ width: "250px", mt: "-4px" }}
+                            value={dataUpdate.address}
+                            onChange={(e) => {
+                              setDataUpdate({
+                                ...dataUpdate,
+                                address: e.target.value,
+                              });
+                            }}
+                          />
+                        </MDBox>
+                        {/* <MDBox display="flex" py={1} pr={2}>
+                          <MDTypography
+                            variant="button"
+                            fontWeight="bold"
+                            textTransform="capitalize"
+                            width="120px"
+                          >
+                            Mật khẩu mới: &nbsp;
                           </MDTypography>
                           <TextField
                             autoFocus
@@ -300,34 +463,34 @@ function Overview() {
                               handleValidPassword(e.target.value);
                             }}
                           />
+                        </MDBox> */}
+                        {/* {!inValidPassword ? (
+                          <MDBox display="flex" py={1} pr={2}>
+                            <Button
+                              sx={{ width: "150px", marginLeft: "16rem" }}
+                              onClick={() => {
+                                handleUpdateProfile();
+                              }}
+                              // disabled
+                            >
+                              Update
+                            </Button>
+                          </MDBox>
+                        ) : ( */}
+                        <MDBox display="flex" py={1} pr={2}>
+                          <Button
+                            sx={{ width: "150px", marginLeft: "16rem" }}
+                            onClick={() => {
+                              handleUpdateProfile();
+                            }}
+                          >
+                            Update
+                          </Button>
                         </MDBox>
-                        {!inValidPassword ? (
-                          <MDBox display="flex" py={1} pr={2}>
-                            <Button
-                              sx={{ width: "150px", marginLeft: "16rem" }}
-                              // onClick={() => {
-                              //   handleUpdateProfile();
-                              // }}
-                              disabled
-                            >
-                              Update
-                            </Button>
-                          </MDBox>
-                        ) : (
-                          <MDBox display="flex" py={1} pr={2}>
-                            <Button
-                              sx={{ width: "150px", marginLeft: "16rem" }}
-                              // onClick={() => {
-                              //   handleUpdateProfile();
-                              // }}
-                            >
-                              Update
-                            </Button>
-                          </MDBox>
-                        )}
+                        {/* // )} */}
                       </MDBox>
                     )}
-                    <MDBox display="flex" py={1} pr={2}>
+                    {/* <MDBox display="flex" py={1} pr={2}>
                       <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
                         social: &nbsp;
                       </MDTypography>
@@ -367,7 +530,7 @@ function Overview() {
                       >
                         <InstagramIcon />
                       </MDBox>
-                    </MDBox>
+                    </MDBox> */}
                   </MDBox>
                 )}
               </MDBox>

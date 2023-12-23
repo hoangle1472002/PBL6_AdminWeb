@@ -43,6 +43,7 @@ function ItemTrip({
   date,
   time,
   vehicle,
+  licensePlate,
   hide,
   idTrip,
   routeStationPrice,
@@ -209,6 +210,8 @@ function ItemTrip({
         width="14%"
         textAlign="left"
       >
+        {licensePlate}
+        <br />
         {vehicle}
       </MDTypography>
       {hide ? (
@@ -357,6 +360,7 @@ ItemTrip.propTypes = {
   dep: PropTypes.string.isRequired,
   des: PropTypes.string.isRequired,
   vehicle: PropTypes.string.isRequired,
+  licensePlate: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   hide: PropTypes.string.isRequired,

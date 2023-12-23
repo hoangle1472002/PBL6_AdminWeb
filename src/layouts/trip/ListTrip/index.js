@@ -7,6 +7,7 @@ import Item from "layouts/trip/itemTrip";
 import { PropTypes } from "prop-types";
 
 function ListTrip({ listTrip, setIsSave, setNotification }) {
+  console.log(listTrip);
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2}>
@@ -35,7 +36,8 @@ function ListTrip({ listTrip, setIsSave, setNotification }) {
                     des={item?.tripInstance?.route?.arrival?.nameStation}
                     date={item?.tripInstance?.date}
                     time={item?.tripInstance?.timeStart}
-                    vehicle={item?.vehicles?.nameVehicle}
+                    vehicle={item?.adminListVehicle?.nameVehicle}
+                    licensePlate={item?.adminListVehicle?.licensePlate}
                     idTrip={item?.idTrip}
                     routeStationPrice={item?.routeStationPrice}
                     hide={false}

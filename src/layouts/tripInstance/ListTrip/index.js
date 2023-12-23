@@ -9,6 +9,7 @@ import Item from "layouts/tripInstance/itemTrip";
 import { PropTypes } from "prop-types";
 
 function ListTrip({ tripInstances, setIsSave, setNotification }) {
+  console.log(tripInstances);
   const { columns, rows } = tabledatatrip();
   return (
     <Card id="delete-account">
@@ -35,23 +36,21 @@ function ListTrip({ tripInstances, setIsSave, setNotification }) {
             noEndBorder
           />
           <MDBox mt="-40px">
-            {tripInstances.length > 0
-              ? tripInstances.map((item, index) => (
-                  <Item
-                    key={item.id}
-                    stt={index + 1}
-                    departure={item?.adminGetRouteResponse?.route?.departure?.nameStation}
-                    arrival={item?.adminGetRouteResponse?.route?.arrival?.nameStation}
-                    date={item.date}
-                    time={item.timeStart}
-                    idTripInstance={item.id}
-                    idRoute={item.adminGetRouteResponse?.route.id}
-                    hide={false}
-                    setIsSave={setIsSave}
-                    setNotification={setNotification}
-                  />
-                ))
-              : null}
+            {tripInstances.map((item, index) => (
+              <Item
+                key={item.id}
+                stt={index + 1}
+                departure={item?.adminGetRouteResponse?.route?.departure?.nameStation}
+                arrival={item?.adminGetRouteResponse?.route?.arrival?.nameStation}
+                date={item.date}
+                time={item.timeStart}
+                idTripInstance={item.id}
+                idRoute={item.adminGetRouteResponse?.route.id}
+                hide={false}
+                setIsSave={setIsSave}
+                setNotification={setNotification}
+              />
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>

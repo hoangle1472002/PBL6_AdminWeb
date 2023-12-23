@@ -1,13 +1,14 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+// import SignUp from "layouts/authentication/sign-up";
 import Vehicle from "layouts/vehicle";
 import Route from "layouts/route";
 import TripInstance from "layouts/tripInstance";
 import Trip from "layouts/trip";
 import HistoryBooking from "layouts/historyBooking";
 import Revenue from "layouts/revenue";
+import Profile from "layouts/profile";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -77,15 +78,15 @@ const routes = [
     component: <Revenue />,
     permission: "login",
   },
-  // {
-  //   type: "collapse",
-  //   name: "Thông tin cá nhân",
-  //   key: "admin/profile",
-  //   icon: <Icon fontSize="small">person</Icon>,
-  //   route: "/admin/profile",
-  //   component: <Profile />,
-  //   permission: "login",
-  // },
+  {
+    type: "collapse",
+    name: "Thông tin cá nhân",
+    key: "admin/profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/admin/profile",
+    component: <Profile />,
+    permission: "login",
+  },
   {
     type: "collapse",
     name: "Đăng xuất",
@@ -113,15 +114,15 @@ const routes = [
     component: <SignIn />,
     permission: "",
   },
-  {
-    type: "collapse",
-    name: "Logout",
-    key: "sign-up",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-    permission: "",
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Logout",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <SignUp />,
+  //   permission: "",
+  // },
 ];
 
 export default routes;

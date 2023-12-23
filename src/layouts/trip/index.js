@@ -84,11 +84,7 @@ function Trip() {
               </MDTypography>
             </MDBox>
             <MDBox mb={3} display="block">
-              {isSave ? (
-                <Loading type="spin" color="rgb(41,130,235)" />
-              ) : (
-                <AddTrip setIsSave={setIsSave} setNotification={setNotification} />
-              )}
+              <AddTrip setIsSave={setIsSave} setNotification={setNotification} />
               {elemNoti()}
               {isSave ? (
                 <Loading type="spin" color="rgb(41,130,235)" />

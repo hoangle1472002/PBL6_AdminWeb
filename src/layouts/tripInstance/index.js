@@ -53,7 +53,7 @@ function Trip() {
   }, [isSaveStation, idRouteChosen]);
   const elemNoti = () => {
     let res = null;
-    if (notification.length > 0) {
+    if (notification?.length > 0) {
       if (notification === "error") {
         res = (
           <Alert

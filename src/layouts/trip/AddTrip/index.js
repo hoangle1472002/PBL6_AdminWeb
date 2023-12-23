@@ -41,6 +41,7 @@ function AddTrip({ setIsSave, setNotification }) {
       getVehicle(setVehicle, setIsSaveTripIns);
     }
   }, [isSaveTripIns]);
+  console.log(tripInstances, vehicle);
   useEffect(() => {
     if (isSaveStation) {
       if (idTripInstanceChosen === 0) {
@@ -164,11 +165,11 @@ function AddTrip({ setIsSave, setNotification }) {
       <MDBox mt={3} pb={2} px={4}>
         <MDBox mb={2} display="block">
           <MDBox mb={2} mt={2} display="flex">
-            <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize" width="20%">
+            <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize" width="30%">
               Chuyến
             </MDTypography>
             {listStation.length > 0 && (
-              <MDBox display="flex" width="80%">
+              <MDBox display="flex" width="70%">
                 <MDTypography variant="h6" fontWeight="medium" ml={1} width="77%">
                   Trạm
                 </MDTypography>
@@ -179,7 +180,7 @@ function AddTrip({ setIsSave, setNotification }) {
             )}
           </MDBox>
           <MDBox mb={2} mt={2} display="flex">
-            <MDBox ml={0} width="20%">
+            <MDBox ml={0} width="30%">
               <FormControl
                 size="small"
                 sx={{ width: "100%" }}
@@ -202,14 +203,15 @@ function AddTrip({ setIsSave, setNotification }) {
                   <MenuItem value={0}>Tất Cả</MenuItem>
                   {tripInstances.map((item) => (
                     <MenuItem value={item.id} key={item.id}>
-                      {item?.adminGetRouteResponse?.route?.departure?.nameStation}- to -
-                      {item?.adminGetRouteResponse?.route?.arrival?.nameStation}
+                      {item?.adminGetRouteResponse?.route?.departure?.nameStation}- đến -
+                      {item?.adminGetRouteResponse?.route?.arrival?.nameStation}- ngày -{item?.date}
+                      &nbsp;{item?.timeStart}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </MDBox>
-            <MDBox ml={0} mt={3} width="70%">
+            <MDBox ml={0} mt={3} width="60%">
               <MDBox pt={1} pb={2} px={2}>
                 <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
                   <MDBox mt="-40px">
@@ -293,11 +295,11 @@ function AddTrip({ setIsSave, setNotification }) {
           </MDBox>
         </MDBox>
         <MDBox mb={2} display="block">
-          <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize" width="100px">
+          <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize" width="30%">
             Xe
           </MDTypography>
           <MDBox mb={2} mt={2} display="flex">
-            <MDBox ml={0} width="18%">
+            <MDBox ml={0} width="25%">
               <FormControl
                 size="small"
                 sx={{ width: "100%" }}
@@ -320,7 +322,7 @@ function AddTrip({ setIsSave, setNotification }) {
                   <MenuItem value={0}>Tất Cả</MenuItem>
                   {vehicle.map((item) => (
                     <MenuItem value={item.id} key={item.id}>
-                      {item.nameVehicle}
+                      {item.licensePlate} - {item.nameVehicle}
                     </MenuItem>
                   ))}
                 </Select>
