@@ -48,7 +48,7 @@ const getVehicleById = (idVehicle, setVehicle, setIsSave) => {
     });
 };
 
-const getAllTypeVehicle = (setVehicle, setSeatQuantities) => {
+const getAllTypeVehicle = (setSeatQuantities, setIsSave) => {
   axios({
     method: "get",
     url: `${baseUrl}all-type-vehicle`,
@@ -61,15 +61,52 @@ const getAllTypeVehicle = (setVehicle, setSeatQuantities) => {
       // Set seat quantities in the state
       setSeatQuantities(data);
 
-      // Set default vehicle state with the first seat quantity
-      setVehicle({
-        ...data[0],
-        seatQuantity: data[0]?.quantity || "",
-      });
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       // Handle error
       console.error(err);
+    });
+};
+
+const createTypeVehicle = (Data, setIsSave, setNotification) => {
+  axios({
+    method: "post",
+    url: `${baseUrl}admin/create-type-vehicle`,
+    data: Data,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => {
+      setNotification(res);
+      setIsSave(true);
+    })
+    .catch((err) => {
+      setNotification("error");
+      console.log(err);
+    });
+};
+
+const removeTypeVehicle = (idType, setIsSave, setNotification) => {
+  axios({
+    method: "delete",
+    url: `${baseUrl}admin/remove-type-vehicle/${idType}`,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => data.body)
+    .then((body) => {
+      setNotification(body);
+      setIsSave(true);
+    })
+    .catch((err) => {
+      setNotification("error");
+      console.log(err);
     });
 };
 
@@ -136,4 +173,12 @@ const updateVehicle = (Data, setIsSave, setNotification) => {
     });
 };
 
-export { getVehicle, getVehicleById, createVehicle, updateVehicle, getAllTypeVehicle };
+export {
+  getVehicle,
+  getVehicleById,
+  createVehicle,
+  updateVehicle,
+  getAllTypeVehicle,
+  createTypeVehicle,
+  removeTypeVehicle,
+};

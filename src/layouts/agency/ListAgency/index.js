@@ -92,7 +92,7 @@ function ListAgency({ listAgency, setIsSave, setNotification }) {
             {listAgency?.map((item, index) => (
               <ItemAgency
                 stt={index + 1}
-                name={item.userName}
+                name={item.name}
                 phone={item.phone}
                 email={item.email}
                 province={item.city}
@@ -108,7 +108,7 @@ function ListAgency({ listAgency, setIsSave, setNotification }) {
         </MDBox>
       </MDBox>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle ml="43%">Cập nhật</DialogTitle>
+        <DialogTitle ml="35%">Tạo tài khoản</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

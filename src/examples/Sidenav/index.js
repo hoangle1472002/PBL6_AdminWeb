@@ -71,7 +71,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   let rou = routes.slice(0, 9);
   if (getLocalStorage("POSITION") === "ADMIN") {
-    rou = routes.slice(9, 11);
+    rou = routes.slice(9);
   }
 
   const navigate = useNavigate();
