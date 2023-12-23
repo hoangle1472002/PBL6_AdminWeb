@@ -94,6 +94,7 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
           nameVehicle="Tên xe"
           numberTicket="Số lượng vé"
           totalPrice="Tổng giá"
+          status="Trạng thái"
           hide
         />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
@@ -130,6 +131,7 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
                       nameVehicle={item.nameVehicle}
                       numberTicket={item.numberTicket}
                       totalPrice={item.totalPrice}
+                      status={item.status}
                       hide={false}
                     />
                   ))

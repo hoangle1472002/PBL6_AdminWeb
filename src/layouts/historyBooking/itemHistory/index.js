@@ -45,6 +45,7 @@ function ItemHistory({
   nameVehicle,
   numberTicket,
   totalPrice,
+  status,
   hide,
   idTripInstance,
   idRoute,
@@ -75,6 +76,18 @@ function ItemHistory({
   };
   const handleUpdateTripInstance = () => {
     updateTripInstance(dataUpdate, setIsSave, setNotification);
+  };
+  const getStatusColor = (statusColor) => {
+    switch (statusColor) {
+      case "Success":
+        return "green";
+      case "Cancel":
+        return "red";
+      case "Refund":
+        return "orange";
+      default:
+        return "text"; // Default background color
+    }
   };
   return (
     <MDBox
@@ -169,6 +182,22 @@ function ItemHistory({
       >
         {totalPrice}
       </MDTypography>
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        ml={2}
+        width="10%"
+        textAlign="left"
+        style={{
+          color: getStatusColor(status),
+          padding: "8px",
+          borderRadius: "5px",
+          textAlign: "center",
+        }}
+      >
+        {status}
+      </MDTypography>
       {hide ? (
         <MDBox display="flex" alignItems="center" mt={0} width="0%">
           {null}
@@ -255,6 +284,7 @@ ItemHistory.propTypes = {
   nameVehicle: PropTypes.string.isRequired,
   numberTicket: PropTypes.string.isRequired,
   totalPrice: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   idTripInstance: PropTypes.number.isRequired,
   idRoute: PropTypes.number.isRequired,
   hide: PropTypes.bool.isRequired,
