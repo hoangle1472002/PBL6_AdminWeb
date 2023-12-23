@@ -117,13 +117,10 @@ const getListHistoryByYearForStatistic = async (year) => {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
   });
+  console.log(res);
   try {
     const data = { ...res.data };
-    let sum = 0;
-    data.adminGetStatisticList.forEach((item) => {
-      sum += item.turnover;
-    });
-    return sum;
+    return data.totalRevenue;
   } catch (e) {
     console.log(e);
     return 0;

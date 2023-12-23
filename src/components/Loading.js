@@ -11,7 +11,7 @@ function Loading({ type, color }) {
         justifyContent: "center",
       }}
     >
-      <ReactLoading type={type} color={color} height={50} width={50} />;
+      <ReactLoading type={type} color={color} height={50} width={50} />
     </div>
   );
 }
