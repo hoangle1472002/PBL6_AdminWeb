@@ -9,6 +9,7 @@ import Trip from "layouts/trip";
 import HistoryBooking from "layouts/historyBooking";
 import Revenue from "layouts/revenue";
 import Profile from "layouts/profile";
+import TypeVehicle from "layouts/typeVehicle";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -103,6 +104,15 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/agency",
     component: <Agency />,
+    permission: "login",
+  },
+  {
+    type: "collapse",
+    name: "Quản lý loại xe",
+    key: "admin/typeVehicle",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/admin/typeVehicle",
+    component: <TypeVehicle />,
     permission: "login",
   },
   {

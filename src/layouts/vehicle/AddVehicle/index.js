@@ -29,7 +29,12 @@ function AddVehicle({ setClickSave, setNotification }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getAllTypeVehicle(setVehicle, setSeatQuantities);
+        await getAllTypeVehicle(setSeatQuantities);
+        // Set default vehicle state with the first seat quantity
+        setVehicle({
+          ...seatQuantities[0],
+          seatQuantity: seatQuantities[0]?.quantity || "",
+        });
       } catch (error) {
         console.error("Error fetching seat quantities:", error);
         // Handle the error, e.g., show an error notification
