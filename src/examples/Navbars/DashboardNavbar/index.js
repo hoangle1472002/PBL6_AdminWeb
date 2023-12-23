@@ -100,7 +100,7 @@ function DashboardNavbar({ absolute, light, isMini, title }) {
               <MDInput label="Tìm kiếm" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
+              <Link to="/admin/profile">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
                   <Icon sx={iconsStyle}>account_circle</Icon>
                 </IconButton>

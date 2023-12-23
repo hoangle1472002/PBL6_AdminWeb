@@ -29,16 +29,14 @@ function ListStation({ listStation }) {
             noEndBorder
           />
           <MDBox mt="-40px">
-            {listStation.length > 0
-              ? listStation.map((item, index) => (
-                  <Item
-                    stt={index + 1}
-                    dep={item.stationP.nameStation}
-                    des={item.stationS.nameStation}
-                    time={item.time}
-                  />
-                ))
-              : null}
+            {listStation.map((item, index) => (
+              <Item
+                stt={index + 1}
+                dep={item.stationP.nameStation}
+                des={item.stationS.nameStation}
+                time={item.time}
+              />
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>

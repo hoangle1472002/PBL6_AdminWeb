@@ -128,12 +128,31 @@ function getProfile(setProfile, setIsSave) {
     .then((data) => {
       setProfile(data);
       setIsSave(false);
-      console.log(data);
+      // console.log(data);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-export { login, register, logout, currentUser, getProfile };
+function updateProfile(data) {
+  axios({
+    method: "put",
+    url: `${baseUrl}profile/update-agency`,
+    headers: {
+      authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+      "content-type": "application/json",
+    },
+    data,
+  })
+    .then((res) => {
+      window.location.reload();
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export { login, register, logout, currentUser, getProfile, updateProfile };
 // ${JSON.parse(getLocalStorage(STORAGE.USER_DATA)).tokenType}

@@ -69,9 +69,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  let rou = routes.slice(0, 8);
+  let rou = routes.slice(0, 9);
   if (getLocalStorage("POSITION") === "ADMIN") {
-    rou = routes.slice(8, 10);
+    rou = routes.slice(9, 11);
   }
 
   const navigate = useNavigate();
