@@ -23,10 +23,14 @@ function HistoryBooking() {
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
   const [listHistory, setListHistory] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const PAGE_SIZE = 20;
   const [search, setSearch] = useState({
     type: 0,
     value: "",
   });
+  const [status, setStatus] = useState("All");
   useEffect(() => {
     const notiTime = setTimeout(() => {
       setNotification("");
@@ -35,20 +39,31 @@ function HistoryBooking() {
       clearTimeout(notiTime);
     };
   }, [notification]);
-  useEffect(() => {
-    getListHistory(setListHistory, setIsSave);
-  }, []);
+  // useEffect(() => {
+  //   getListHistory(setListHistory, setIsSave, setCurrentPage, setTotalPage, {
+  //     page: currentPage,
+  //     pageSize: PAGE_SIZE,
+  //     status,
+  //   });
+  // }, []);
   useEffect(() => {
     if (isSave) {
       if (search.type === 0) {
-        getListHistory(setListHistory, setIsSave);
+        getListHistory(setListHistory, setIsSave, setCurrentPage, setTotalPage, {
+          page: currentPage,
+          pageSize: PAGE_SIZE,
+          status,
+        });
       } else if (search.type === 1) {
         getListHistoryByDateOrder(
           {
             date: search.value,
           },
           setListHistory,
-          setIsSave
+          setIsSave,
+          {
+            status,
+          }
         );
       } else if (search.type === 2) {
         getListHistoryByDateStart(
@@ -56,15 +71,31 @@ function HistoryBooking() {
             date: search.value,
           },
           setListHistory,
-          setIsSave
+          setIsSave,
+          {
+            status,
+          }
         );
       } else if (search.type === 3) {
-        getListHistoryByCustomer(search.value, setListHistory, setIsSave);
+        getListHistoryByCustomer(
+          search.value,
+          setListHistory,
+          setIsSave,
+          setCurrentPage,
+          setTotalPage,
+          {
+            page: currentPage,
+            pageSize: PAGE_SIZE,
+            status,
+          }
+        );
       } else if (search.type === 4) {
         getListHistoryByYear(search.value, setListHistory, setIsSave);
       }
     }
   }, [isSave]);
+
+  console.log(isSave);
 
   return (
     <DashboardLayout>
@@ -96,6 +127,12 @@ function HistoryBooking() {
                     setSearch={setSearch}
                     search={search}
                     isSave={isSave}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    totalPage={totalPage}
+                    pageSize={PAGE_SIZE}
+                    status={status}
+                    setStatus={setStatus}
                   />
                 </Grid>
               </Grid>

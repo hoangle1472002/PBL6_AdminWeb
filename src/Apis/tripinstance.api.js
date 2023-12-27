@@ -2,20 +2,33 @@ import axios from "axios";
 import { STORAGE, getLocalStorage } from "Utils/storage";
 import baseUrl from "./config";
 
-const getTripInstance = (setTripInstance, setIsSave) => {
+const getTripInstance = (
+  setTripInstance,
+  setIsSave = null,
+  setCurrentPage = null,
+  setTotalPage = null,
+  params
+) => {
   axios({
     method: "get",
     url: `${baseUrl}admin/get-trip-instance`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
+    params,
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      console.log("body", body);
-      setTripInstance(body);
-      setIsSave(false);
+    .then((data) => {
+      setTripInstance(data.content);
+      if (setCurrentPage) {
+        setCurrentPage(data.number + 1);
+      }
+      if (setTotalPage) {
+        setTotalPage(data.totalPages);
+      }
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);

@@ -20,6 +20,10 @@ function Route() {
   const [listStation, setListStation] = useState([]);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const PAGE_SIZE = 20;
+  console.log(currentPage);
   useEffect(() => {
     const notiTime = setTimeout(() => {
       setNotification("");
@@ -33,9 +37,12 @@ function Route() {
   }, []);
   useEffect(() => {
     if (isSave) {
-      getRoute(setListRoute, setIsSave);
+      getRoute(setListRoute, setIsSave, setCurrentPage, setTotalPage, {
+        page: currentPage,
+        pageSize: PAGE_SIZE,
+      });
     }
-  }, [isSave]);
+  }, [isSave, currentPage]);
   const elemNoti = () => {
     let res = null;
     if (notification.length > 0) {
@@ -106,6 +113,10 @@ function Route() {
                   listStation={listStation}
                   setIsSave={setIsSave}
                   setNotification={setNotification}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPage={totalPage}
+                  pageSize={PAGE_SIZE}
                 />
               )}
             </MDBox>

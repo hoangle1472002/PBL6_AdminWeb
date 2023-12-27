@@ -149,7 +149,7 @@ export default function App() {
       let res = null;
       if (
         !localStorage.getItem(STORAGE.USER_TOKEN) ||
-        new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE")) > 86400000)
+        new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE"))) > 86400000
       ) {
         res = <Route path="*" element={<Navigate to="/authentication/sign-in" />} />;
       } else if (getLocalStorage("POSITION") === "AGENCY") {
@@ -232,7 +232,7 @@ export default function App() {
           {/* {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/admin/dashboard" />} /> */}
           {!localStorage.getItem(STORAGE.USER_TOKEN) ||
-          new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE")) > 86400000)
+          new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE"))) > 86400000
             ? getRoutesPublic(routes)
             : null}
 

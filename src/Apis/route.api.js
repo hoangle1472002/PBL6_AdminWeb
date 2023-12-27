@@ -2,19 +2,30 @@ import axios from "axios";
 import { STORAGE, getLocalStorage } from "Utils/storage";
 import baseUrl from "./config";
 
-const getRoute = (setRoute, setIsSave = null) => {
+const getRoute = (
+  setRoute,
+  setIsSave = null,
+  setCurrentPage = null,
+  setTotalPage = null,
+  params = null
+) => {
   axios({
     method: "get",
     url: `${baseUrl}admin/get-route-and-routestation`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
+    params,
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      // console.log(body);
-      setRoute(body);
+    .then((data) => {
+      setRoute(data.content);
+      if (setCurrentPage) {
+        setCurrentPage(data.number + 1);
+      }
+      if (setTotalPage) {
+        setTotalPage(data.totalPages);
+      }
       if (setIsSave) {
         setIsSave(false);
       }

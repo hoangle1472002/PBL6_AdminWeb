@@ -7,12 +7,32 @@ import DataTable from "examples/Tables/DataTable";
 import tabledatatrip from "layouts/tripInstance/data/tabledatatrip";
 import Item from "layouts/historyBooking/itemHistory";
 import { PropTypes } from "prop-types";
-import { FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, TextField, Icon } from "@mui/material";
 import MDButton from "components/MDButton";
 import Loading from "components/Loading";
+import MDPagination from "components/MDPagination";
+import { useEffect } from "react";
 
-function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
+function ListHistory({
+  listHistory,
+  setSearch,
+  search,
+  status,
+  setStatus,
+  setIsSave,
+  isSave,
+  currentPage,
+  setCurrentPage,
+  totalPage,
+  pageSize,
+}) {
   const { columns, rows } = tabledatatrip();
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setIsSave(true);
+  }, [status]);
+  console.log(status);
 
   return (
     <Card id="delete-account">
@@ -51,6 +71,31 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
             <MenuItem value={2}>Ngày đi</MenuItem>
             <MenuItem value={3}>Số điện thoại</MenuItem>
             {/* <MenuItem value={4}>Năm</MenuItem> */}
+          </Select>
+        </FormControl>
+        <FormControl
+          size="small"
+          sx={{ width: "10%" }}
+          style={{
+            height: 40,
+            marginRight: 20,
+          }}
+        >
+          <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Trạng thái"
+            defaultValue={status}
+            onChange={(e) => {
+              setStatus(e.target.value);
+            }}
+            style={{ height: "100%" }}
+          >
+            <MenuItem value="All">Tất Cả</MenuItem>
+            <MenuItem value="Success">Đã thanh toán</MenuItem>
+            <MenuItem value="Cancel">Đã hủy</MenuItem>
+            <MenuItem value="Refund">Hoàn tiền</MenuItem>
           </Select>
         </FormControl>
         {search.type === 0 ? null : (
@@ -112,6 +157,7 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
               {listHistory.length > 0
                 ? listHistory.map((item, index) => (
                     <Item
+                      key={item.id}
                       // stt={index + 1}
                       // departure={item.adminGetRouteResponse.route.departure.nameStation}
                       // arrival={item.adminGetRouteResponse.route.arrival.nameStation}
@@ -122,7 +168,7 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
                       // hide={false}
                       // setIsSave={setIsSave}
                       // setNotification={setNotification}
-                      stt={index + 1}
+                      stt={index + (currentPage - 1) * pageSize + 1}
                       name={item.customer.username}
                       route={item.route}
                       dateOrder={item.datOrder}
@@ -140,6 +186,44 @@ function ListHistory({ listHistory, setSearch, search, setIsSave, isSave }) {
           )}
         </MDBox>
       </MDBox>
+      {search.type !== 1 && search.type !== 2 && (
+        <MDBox pb={3} px={2}>
+          <MDPagination>
+            <MDPagination
+              item
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setIsSave(true);
+              }}
+              disabled={currentPage === 1}
+            >
+              <Icon>keyboard_arrow_left</Icon>
+            </MDPagination>
+            {Array.from({ length: totalPage }).map((_, index) => (
+              <MDPagination
+                item
+                onClick={() => {
+                  setCurrentPage(index + 1);
+                  setIsSave(true);
+                }}
+                active={currentPage === index + 1}
+              >
+                {index + 1}
+              </MDPagination>
+            ))}
+            <MDPagination
+              item
+              onClick={() => {
+                setCurrentPage(currentPage + 1);
+                setIsSave(true);
+              }}
+              disabled={currentPage === totalPage}
+            >
+              <Icon>keyboard_arrow_right</Icon>
+            </MDPagination>
+          </MDPagination>
+        </MDBox>
+      )}
     </Card>
   );
 }
@@ -148,8 +232,14 @@ ListHistory.propTypes = {
   listHistory: PropTypes.arrayOf.isRequired,
   setSearch: PropTypes.func.isRequired,
   search: PropTypes.objectOf.isRequired,
+  setStatus: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
   setIsSave: PropTypes.func.isRequired,
   isSave: PropTypes.bool.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  totalPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export default ListHistory;

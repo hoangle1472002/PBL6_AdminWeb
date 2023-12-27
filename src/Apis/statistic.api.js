@@ -2,17 +2,30 @@ import axios from "axios";
 import { STORAGE, getLocalStorage } from "Utils/storage";
 import baseUrl from "./config";
 
-const getListHistory = (setListHistory, setIsSave = null) => {
+const getListHistory = (
+  setListHistory,
+  setIsSave = null,
+  setCurrentPage = null,
+  setTotalPage = null,
+  params
+) => {
   axios({
     method: "get",
     url: `${baseUrl}admin/get-all-history`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
+    params,
   })
     .then((res) => res.data)
     .then((data) => {
-      setListHistory(data);
+      setListHistory(data.content);
+      if (setCurrentPage) {
+        setCurrentPage(data.number + 1);
+      }
+      if (setTotalPage) {
+        setTotalPage(data.totalPages);
+      }
       if (setIsSave) {
         setIsSave(false);
       }
@@ -22,7 +35,7 @@ const getListHistory = (setListHistory, setIsSave = null) => {
       setIsSave(false);
     });
 };
-const getListHistoryByDateOrder = (Data, setListHistory, setIsSave) => {
+const getListHistoryByDateOrder = (Data, setListHistory, setIsSave, params) => {
   axios({
     method: "post",
     url: `${baseUrl}admin/get-history-by-dateOrder`,
@@ -30,6 +43,7 @@ const getListHistoryByDateOrder = (Data, setListHistory, setIsSave) => {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
     data: Data,
+    params,
   })
     .then((res) => res.data)
     .then((data) => {
@@ -41,7 +55,7 @@ const getListHistoryByDateOrder = (Data, setListHistory, setIsSave) => {
       setIsSave(false);
     });
 };
-const getListHistoryByDateStart = (Data, setListHistory, setIsSave) => {
+const getListHistoryByDateStart = (Data, setListHistory, setIsSave, params) => {
   axios({
     method: "post",
     url: `${baseUrl}admin/get-history-by-dateStart`,
@@ -49,6 +63,7 @@ const getListHistoryByDateStart = (Data, setListHistory, setIsSave) => {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
     data: Data,
+    params,
   })
     .then((res) => res.data)
     .then((data) => {
@@ -60,20 +75,36 @@ const getListHistoryByDateStart = (Data, setListHistory, setIsSave) => {
       setIsSave(false);
     });
 };
-const getListHistoryByCustomer = (name, setListHistory, setIsSave) => {
+const getListHistoryByCustomer = (
+  name,
+  setListHistory,
+  setIsSave,
+  setCurrentPage = null,
+  setTotalPage = null,
+  params
+) => {
   axios({
     method: "get",
-    url: `${baseUrl}admin/get-history-by-phone-customer/${name}`,
+    url: `${baseUrl}admin/get-history-by-phoneCustomer/${name}`,
     // url: `${baseUrl}admin/get-history-by-nameCustommer/${name}`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
+    params,
   })
     .then((res) => res.data)
     .then((data) => {
       // console.log(data);
-      setListHistory(data);
-      setIsSave(false);
+      setListHistory(data.content);
+      if (setCurrentPage) {
+        setCurrentPage(data.number + 1);
+      }
+      if (setTotalPage) {
+        setTotalPage(data.totalPages);
+      }
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);

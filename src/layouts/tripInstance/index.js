@@ -25,6 +25,9 @@ function Trip() {
   const [isSaveStation, setIsSaveStation] = useState(true);
   const [idRouteChosen, setIdRouteChosen] = useState(0);
   const [notification, setNotification] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const PAGE_SIZE = 20;
   useEffect(() => {
     const notiTime = setTimeout(() => {
       setNotification("");
@@ -35,11 +38,14 @@ function Trip() {
   }, [notification]);
   useEffect(() => {
     if (isSave) {
-      console.log("fetch");
-      getTripInstance(setTripInstances, setIsSave);
+      getTripInstance(setTripInstances, setIsSave, setCurrentPage, setTotalPage, {
+        page: currentPage,
+        pageSize: PAGE_SIZE,
+      });
       getRoute(setRoutes, setIsSave);
     }
-  }, [isSave]);
+  }, [isSave, currentPage]);
+  console.log(isSave);
   useEffect(() => {
     // alert(isSaveStation);
     if (isSaveStation) {
@@ -134,6 +140,10 @@ function Trip() {
                   tripInstances={tripInstances}
                   setIsSave={setIsSave}
                   setNotification={setNotification}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPage={totalPage}
+                  pageSize={PAGE_SIZE}
                 />
               )}
             </MDBox>
