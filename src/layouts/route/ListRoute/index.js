@@ -1,15 +1,27 @@
+import { Icon } from "@mui/material";
 import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDPagination from "components/MDPagination";
 import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/route/data/authorsTableData";
 import Item from "layouts/route/itemRoute";
 import { PropTypes } from "prop-types";
 
-function ListRoute({ listRoute, listStation, setIsSave, setNotification }) {
+function ListRoute({
+  listRoute,
+  listStation,
+  setIsSave,
+  setNotification,
+  currentPage,
+  setCurrentPage,
+  totalPage,
+  pageSize,
+}) {
   const { columns, rows } = authorsTableData();
+  console.log(listRoute, totalPage, Array.from({ length: totalPage }), currentPage);
   const convertTimeToNumber = (time1 = "00:00:00", time2 = "00:00:00", time3 = "00:00:00") => {
     const arrTime1 = time1.split(":").map((item1) => parseInt(item1, 10));
     const [hour1, minutes1, seconds1] = arrTime1;
@@ -62,7 +74,8 @@ function ListRoute({ listRoute, listStation, setIsSave, setNotification }) {
           <MDBox mt="-40px">
             {listRoute?.map((item, index) => (
               <Item
-                stt={index + 1}
+                key={item.id}
+                stt={index + (currentPage - 1) * pageSize + 1}
                 dep={item.route.departure?.nameStation}
                 des={item.route.arrival?.nameStation}
                 quantity={item.routeStationList.length - 1}
@@ -92,6 +105,42 @@ function ListRoute({ listRoute, listStation, setIsSave, setNotification }) {
           </MDBox>
         </MDBox>
       </MDBox>
+      <MDBox pb={3} px={2}>
+        <MDPagination>
+          <MDPagination
+            item
+            onClick={() => {
+              setCurrentPage(currentPage - 1);
+              setIsSave(true);
+            }}
+            disabled={currentPage === 1}
+          >
+            <Icon>keyboard_arrow_left</Icon>
+          </MDPagination>
+          {Array.from({ length: totalPage }).map((_, index) => (
+            <MDPagination
+              item
+              onClick={() => {
+                setCurrentPage(index + 1);
+                setIsSave(true);
+              }}
+              active={currentPage === index + 1}
+            >
+              {index + 1}
+            </MDPagination>
+          ))}
+          <MDPagination
+            item
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+              setIsSave(true);
+            }}
+            disabled={currentPage === totalPage}
+          >
+            <Icon>keyboard_arrow_right</Icon>
+          </MDPagination>
+        </MDPagination>
+      </MDBox>
     </Card>
   );
 }
@@ -100,5 +149,9 @@ ListRoute.propTypes = {
   listStation: PropTypes.arrayOf.isRequired,
   setIsSave: PropTypes.func.isRequired,
   setNotification: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  totalPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 export default ListRoute;

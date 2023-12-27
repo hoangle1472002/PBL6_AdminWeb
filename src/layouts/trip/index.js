@@ -19,6 +19,9 @@ function Trip() {
   const [listTrip, setListTrip] = useState([]);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const PAGE_SIZE = 20;
   useEffect(() => {
     const notiTime = setTimeout(() => {
       setNotification("");
@@ -30,7 +33,10 @@ function Trip() {
 
   useEffect(() => {
     if (isSave) {
-      getEveryTrip(setListTrip, setIsSave);
+      getEveryTrip(setListTrip, setIsSave, setCurrentPage, setTotalPage, {
+        page: currentPage,
+        pageSize: PAGE_SIZE,
+      });
     }
   }, [isSave]);
   const elemNoti = () => {
@@ -93,6 +99,10 @@ function Trip() {
                   listTrip={listTrip}
                   setIsSave={setIsSave}
                   setNotification={setNotification}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPage={totalPage}
+                  pageSize={PAGE_SIZE}
                 />
               )}
             </MDBox>

@@ -2,18 +2,30 @@ import axios from "axios";
 import { STORAGE, getLocalStorage } from "Utils/storage";
 import baseUrl from "./config";
 
-const getEveryTrip = (setTrip, setIsSave = null) => {
+const getEveryTrip = (
+  setTrip,
+  setIsSave = null,
+  setCurrentPage = null,
+  setTotalPage = null,
+  params
+) => {
   axios({
     method: "get",
     url: `${baseUrl}admin/get-everything-trip`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
+    params,
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      setTrip(body);
+    .then((data) => {
+      setTrip(data.content);
+      if (setCurrentPage) {
+        setCurrentPage(data.number + 1);
+      }
+      if (setTotalPage) {
+        setTotalPage(data.totalPages);
+      }
       if (setIsSave) {
         setIsSave(false);
       }
