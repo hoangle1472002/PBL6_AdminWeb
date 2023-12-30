@@ -67,10 +67,8 @@ const createTripInstance = (Data, setIsSave, setNotification) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      console.log(body);
-      setNotification(body);
+    .then((data) => {
+      setNotification(data);
       setIsSave(true);
     })
     .catch((err) => {
@@ -88,11 +86,9 @@ const deleteTripInstance = (idTripInstance, setIsSave, setNotification) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      console.log(body);
+    .then((data) => {
       setIsSave(true);
-      setNotification(body);
+      setNotification(data);
     })
     .catch((err) => {
       console.log(err);
@@ -110,12 +106,11 @@ const updateTripInstance = (Data, setIsSave, setNotification) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      console.log(body);
+    .then((data) => {
       setIsSave(true);
-      setNotification(body);
+      setNotification(data);
     })
+
     .catch((err) => {
       console.log(err);
       setNotification("error");
