@@ -37,27 +37,28 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
     getRouteStationById(idRoute, setStationById, setIsSave, setNotification, setNumberStation);
   }, []);
 
-  React.useEffect(() => {
-    if (
-      dataUpdate.descriptionDep &&
-      dataUpdate.descriptionDes &&
-      dataUpdate.idDep &&
-      dataUpdate.idDes &&
-      dataUpdate.descriptionStation2 &&
-      dataUpdate.descriptionStation1 &&
-      id1 &&
-      id2 &&
-      idRoute &&
-      dataUpdate.listIdRouteStation.length > 0 &&
-      dataUpdate.time?.[0] !== ":00" &&
-      dataUpdate.time?.[1] !== ":00" &&
-      dataUpdate.time?.[2] !== ":00"
-    ) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [dataUpdate, id1, id2]);
+  // React.useEffect(() => {
+  //   if (
+  //     dataUpdate.descriptionDep &&
+  //     dataUpdate.descriptionDes &&
+  //     dataUpdate.idDep &&
+  //     dataUpdate.idDes &&
+  //     dataUpdate.descriptionStation2 &&
+  //     dataUpdate.descriptionStation1 &&
+  //     id1 &&
+  //     id2 &&
+  //     idRoute &&
+  //     dataUpdate.listIdRouteStation.length > 0 &&
+  //     dataUpdate.time?.[0] !== ":00" &&
+  //     dataUpdate.time?.[1] !== ":00" &&
+  //     dataUpdate.time?.[2] !== ":00"
+  //   ) {
+  //     setDisabled(false);
+  //   } else {
+  //     setDisabled(true);
+  //   }
+  //   console.log(dataUpdate);
+  // }, [dataUpdate, id1, id2]);
 
   React.useEffect(() => {
     let requestObject = {};
@@ -186,6 +187,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                         ...dataUpdate,
                         idDep: e.target.value,
                       });
+                      setDisabled(false);
                     }}
                     style={{ height: "100%" }}
                   >
@@ -211,6 +213,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                       ...dataUpdate,
                       descriptionDep: e.target.value,
                     });
+                    setDisabled(false);
                   }}
                 />
               </MDBox>
@@ -289,6 +292,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                       idStation1: e.target.value,
                     });
                     setId1(e.target.value);
+                    setDisabled(false);
                   }}
                   style={{ height: "100%" }}
                 >
@@ -314,6 +318,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                     ...dataUpdate,
                     descriptionStation1: e.target.value,
                   });
+                  setDisabled(false);
                 }}
               />
             </MDBox>
@@ -339,6 +344,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                       time: arrTime,
                     };
                   });
+                  setDisabled(false);
                 }}
               />
             </MDBox>
@@ -374,6 +380,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                       idStation2: e.target.value,
                     });
                     setId2(e.target.value);
+                    setDisabled(false);
                   }}
                   style={{ height: "100%" }}
                 >
@@ -399,6 +406,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                     ...dataUpdate,
                     descriptionStation2: e.target.value,
                   });
+                  setDisabled(false);
                 }}
               />
             </MDBox>
@@ -427,6 +435,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                     ...dataUpdate,
                     time: arrTime,
                   });
+                  setDisabled(false);
                 }}
               />
             </MDBox>
@@ -460,6 +469,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                     ...dataUpdate,
                     idDes: e.target.value,
                   });
+                  setDisabled(false);
                 }}
                 style={{ height: "100%" }}
               >
@@ -486,6 +496,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                   ...dataUpdate,
                   descriptionDes: e.target.value,
                 });
+                setDisabled(false);
               }}
             />
           </MDBox>
@@ -514,6 +525,7 @@ function UpdateRoute({ listStation, handleClose, idRoute, setIsSave, setNotifica
                   ...dataUpdate,
                   time: arrTime,
                 });
+                setDisabled(false);
               }}
             />
           </MDBox>

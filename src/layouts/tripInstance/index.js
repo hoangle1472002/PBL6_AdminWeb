@@ -109,6 +109,7 @@ function Trip() {
                 Quản lý thời gian chuyến đi
               </MDTypography>
             </MDBox>
+            {elemNoti()}
             <MDBox mb={3} display="block">
               <Grid container spacing={3}>
                 <Grid item xs={12} md={5}>
@@ -132,7 +133,6 @@ function Trip() {
                   )}
                 </Grid>
               </Grid>
-              {elemNoti()}
               {isSave ? (
                 <Loading type="spin" color="rgb(41,130,235)" />
               ) : (

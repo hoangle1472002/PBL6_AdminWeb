@@ -11,13 +11,15 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { createTripInstance } from "Apis/tripinstance.api";
 
 function AddTrip({ routes, setIdRouteChosen, setIsSaveStation, setIsSave, setNotification }) {
+  const today = new Date();
+  const tomorrow = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+  const minTime = `${today.getHours()}:${today.getMinutes()}`;
   const [dataAdd, setDataAdd] = React.useState({
     date: "",
     idRoute: 0,
     timeStart: "",
   });
   const handleCreateTripInstance = () => {
-    // console.log(dataAdd);
     createTripInstance(dataAdd, setIsSave, setNotification);
   };
   return (
@@ -96,6 +98,9 @@ function AddTrip({ routes, setIdRouteChosen, setIsSaveStation, setIsSave, setNot
                       date: e.target.value,
                     });
                   }}
+                  inputProps={{
+                    min: tomorrow,
+                  }}
                 />
               </MDBox>
             </MDBox>
@@ -119,6 +124,9 @@ function AddTrip({ routes, setIdRouteChosen, setIsSaveStation, setIsSave, setNot
                       ...dataAdd,
                       timeStart: `${e.target.value}:00`,
                     });
+                  }}
+                  inputProps={{
+                    min: minTime,
                   }}
                 />
               </MDBox>
