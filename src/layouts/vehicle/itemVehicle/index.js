@@ -171,11 +171,14 @@ function ItemVehicle({
             }}
             disabled
           />
-          <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+          <InputLabel sx={{ mt: 4, mx: 4 }} id="demo-simple-select-label">
+            Trạng thái
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Trạng thái"
+            sx={{ width: "450px", height: "50px", mt: 2, mb: 4, mx: 4 }}
             onChange={(e) => {
               setVehicle({
                 ...vehicle,
