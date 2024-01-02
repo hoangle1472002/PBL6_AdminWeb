@@ -12,8 +12,13 @@ import { createTripInstance } from "Apis/tripinstance.api";
 
 function AddTrip({ routes, setIdRouteChosen, setIsSaveStation, setIsSave, setNotification }) {
   const today = new Date();
-  const tomorrow = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  const minTime = `${today.getHours()}:${today.getMinutes()}`;
+  const tomorrow = `${today.getFullYear()}-${(today.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
+  const minTime = `${today.getHours().toString().padStart(2, "0")}:${today
+    .getMinutes()
+    .toString()
+    .padStart(2, "0")}`;
   const [dataAdd, setDataAdd] = React.useState({
     date: "",
     idRoute: 0,

@@ -34,6 +34,14 @@ function AddTrip({ setIsSave, setNotification }) {
     price2: 0,
     price3: 0,
   });
+  const today = new Date();
+  // const tomorrow = `${today.getFullYear()}-${(today.getMonth() + 1)
+  //   .toString()
+  //   .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
+  // const minTime = `${today.getHours().toString().padStart(2, "0")}:${today
+  //   .getMinutes()
+  //   .toString()
+  //   .padStart(2, "0")}`;
 
   useEffect(() => {
     if (isSaveTripIns) {
@@ -192,7 +200,7 @@ function AddTrip({ setIsSave, setNotification }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Lop"
+                  label="TripInstance"
                   defaultValue={0}
                   onChange={(e) => {
                     setIdTripInstanceChosen(e.target.value);
@@ -201,13 +209,17 @@ function AddTrip({ setIsSave, setNotification }) {
                   style={{ height: "100%" }}
                 >
                   <MenuItem value={0}>Tất Cả</MenuItem>
-                  {tripInstances.map((item) => (
-                    <MenuItem value={item.id} key={item.id}>
-                      {item?.adminGetRouteResponse?.route?.departure?.nameStation}- đến -
-                      {item?.adminGetRouteResponse?.route?.arrival?.nameStation}- ngày -{item?.date}
-                      &nbsp;{item?.timeStart}
-                    </MenuItem>
-                  ))}
+                  {tripInstances.map(
+                    (item) =>
+                      new Date(`${item.date}T${item.timeStart}`) >= today && (
+                        <MenuItem value={item.id} key={item.id}>
+                          {item?.adminGetRouteResponse?.route?.departure?.nameStation}- đến -
+                          {item?.adminGetRouteResponse?.route?.arrival?.nameStation}- ngày -
+                          {item?.date}
+                          &nbsp;{item?.timeStart}
+                        </MenuItem>
+                      )
+                  )}
                 </Select>
               </FormControl>
             </MDBox>
@@ -311,7 +323,7 @@ function AddTrip({ setIsSave, setNotification }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Lop"
+                  label="Vehicle"
                   defaultValue={0}
                   onChange={(e) => {
                     setIdVehicleChosen(e.target.value);
