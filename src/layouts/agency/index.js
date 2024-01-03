@@ -79,7 +79,7 @@ function Agency() {
               marginBottom="2rem"
             >
               <MDTypography variant="h6" color="white">
-                Quản lý Hãng Xe
+                Quản lý hãng Xe
               </MDTypography>
             </MDBox>
 

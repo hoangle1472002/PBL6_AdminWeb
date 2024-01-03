@@ -65,7 +65,7 @@ function Agency() {
   };
   return (
     <DashboardLayout>
-      <DashboardNavbar title="Hãng xe" />
+      <DashboardNavbar title="Loại xe" />
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -80,7 +80,7 @@ function Agency() {
               marginBottom="2rem"
             >
               <MDTypography variant="h6" color="white">
-                Quản lý Hãng Xe
+                Quản lý loại Xe
               </MDTypography>
             </MDBox>
 
