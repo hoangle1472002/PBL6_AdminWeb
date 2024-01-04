@@ -45,11 +45,12 @@ const createTripPrice = (Data, setIsSave, setNotification) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
-      setNotification(body);
+    .then((data) => {
+      setNotification("Thêm chuyến thành công");
       setIsSave(true);
+      return data;
     })
+
     .catch((err) => {
       console.log(err);
       setNotification("error");
@@ -66,10 +67,10 @@ const updatePriceTrip = (Data, setIsSave, setNotification) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => data.body)
-    .then((body) => {
+    .then((data) => {
       setIsSave(true);
-      setNotification(body);
+      setNotification("Cập nhật giá chuyến thành công");
+      return data;
     })
     .catch((err) => {
       console.log(err);

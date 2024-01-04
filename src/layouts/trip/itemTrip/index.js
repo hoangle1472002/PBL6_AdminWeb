@@ -220,11 +220,11 @@ function ItemTrip({
         </MDBox>
       ) : (
         <MDBox display="flex" alignItems="center" mt={0} width="10%">
-          <MDBox mr={0} ml={0}>
+          {/* <MDBox mr={0} ml={0}>
             <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;Xóa
             </MDButton>
-          </MDBox>
+          </MDBox> */}
           {new Date().valueOf() - Date.parse(date) < 0 ? (
             <MDButton
               variant="text"
